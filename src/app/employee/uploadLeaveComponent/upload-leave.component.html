@@ -1,0 +1,6 @@
+<ejs-dialog #uploadLeave [buttons]='dlgButtons' header="Upload Leave" [showCloseIcon]='true' [target]='target'
+            [visible]='false' [isModal]='true'>
+  <ng-template #content>
+    <input type="file" id="employeeLeaveFile" (change)="handleFileInput($event)">
+  </ng-template>
+</ejs-dialog>

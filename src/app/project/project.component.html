@@ -1,0 +1,96 @@
+<section id="home-container" class="d-flex" style="height: 91.6vh;">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-11 col-lg-11 col-sm-11 col-11" style="transition: all 0.25s;">
+        <div class="card shadow-lgclear">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-4 col-lg-4 col-sm-4 col-4">
+                <h5 class="card-title"><b>Projects</b></h5>
+              </div>
+              <div class="col-md-4 col-lg-4 col-sm-4 col-4"></div>
+              <div class="col-md-4 col-lg-4 col-sm-4 col-4 icofont-pull-right">
+                <a class="btn btn-secondary btn-sm btn-block" (click)="addNewProject()"><i class="icofont-ui-add"></i>&nbsp;Add
+                  Project</a>
+              </div>
+            </div>
+          </div>
+          <div class="table-responsive shadow-sm">
+            <table class="table table-bordered">
+              <thead>
+              <tr>
+                <th>Name</th>
+                <th>Milestones</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Action</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let project of projectsList">
+                <td>{{project.name}}</td>
+                <td>{{project.milestones.length}}</td>
+                <td>{{project.startDate}}</td>
+                <td>
+                  <div *ngIf="null !== project.endDate">
+                    {{project.endDate}}
+                  </div>
+                  <div *ngIf="null === project.endDate">
+                    N/A
+                  </div>
+                </td>
+                <td>
+                  <div *ngIf="null !== project.endDate">
+                    <a class="btn btn-secondary btn-sm btn-block" (click)="viewProjectRoadmap(project)">View Roadmap</a>
+                  </div>
+                  <div *ngIf="null === project.endDate">
+                    <a class="btn btn-primary btn-sm btn-block">Generate Roadmap</a>
+                  </div>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row" style="margin-top: 20px;">
+      <div class="col-md-11 col-lg-11 col-sm-11 col-11" style="transition: all 0.25s;">
+        <div class="card shadow-lg">
+          <div class="card-body">
+            <h5 class="card-title"><b>Roadmap</b></h5>
+            <div *ngIf="null === selectedProject">
+              Please select a project to view its Roadmap
+            </div>
+            <div *ngIf="null !== selectedProject" style="max-height: 400px; overflow-y: scroll;">
+              <div class="row">
+                <div class="col-md-4 col-lg-4 col-sm-4 col-4">
+                  <b>Project:</b>&nbsp;{{selectedProject.name}}
+                </div>
+                <div class="col-md-4 col-lg-4 col-sm-4 col-4">
+                  <b>Start Date:</b>&nbsp;{{selectedProject.startDate}}
+                </div>
+                <div class="col-md-4 col-lg-4 col-sm-4 col-4 icofont-pull-right">
+                  <b>End Date:</b>&nbsp;{{selectedProject.endDate}}
+                </div>
+              </div>
+              <ejs-gantt id="roadmapChart" [dataSource]="data" [taskFields]="taskSettings"
+                         [columns]="columns">
+                <ng-template #tooltipSettingsTaskbar let-data>
+                  <div>
+                    <p *ngIf="null !== data.AssignedTo">Assignee: {{data.AssignedTo}}</p>
+                    <p>From: {{data.StartDate | date : "dd-MMM-yyyy"}}</p>
+                    <p>To: {{data.EndDate | date : "dd-MMM-yyyy"}}</p>
+                  </div>
+                </ng-template>
+              </ejs-gantt>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="upload-project-details-section">
+      <app-upload-project-details (sendValue)='recordProjectDetails($event)'></app-upload-project-details>
+    </div>
+  </div>
+</section>

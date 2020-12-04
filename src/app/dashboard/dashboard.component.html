@@ -1,0 +1,61 @@
+<!-- <div class="py-5"> -->
+<section id="home-container" class="d-flex" style="height: 91.6vh;">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-11 col-lg-11 col-sm-11 col-11" style="transition: all 0.25s;">
+				<div class="card shadow-lgclear">
+					<div class="card-body">
+						<h5 class="card-title"><b>Projects</b></h5>
+					</div>
+					<div class="table-responsive shadow-sm">
+						<table class="table table-bordered">
+							<thead>
+								<tr>
+									<th>Name</th>
+									<th>Milestones</th>
+									<th>Start Date</th>
+									<th>End Date</th>
+									<th>Action</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>Project 1</td>
+									<td>3</td>
+									<td>01-JUN-2020</td>
+									<td>31-JUL-2020</td>
+									<td><a class="btn btn-secondary btn-sm btn-block">View Roadmap</a></td>
+								</tr>
+								<tr>
+									<td>Project 2</td>
+									<td>2</td>
+									<td>10-JUN-2020</td>
+									<td>N/A</td>
+									<td><a class="btn btn-primary btn-sm btn-block">Generate Roadmap</a></td>
+								</tr>
+								<tr>
+									<td>Project 3</td>
+									<td>4</td>
+									<td>01-JUL-2020</td>
+									<td>N/A</td>
+									<td><a class="btn btn-primary btn-sm btn-block">Generate Roadmap</a></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row" style="margin-top: 20px;">
+			<div class="col-md-11 col-lg-11 col-sm-11 col-11" style="transition: all 0.25s;">
+				<div class="card shadow-lg">
+					<div class="card-body">
+						<h5 class="card-title"><b>Roadmap</b></h5>
+						<ejs-gantt id="GanttSample" [dataSource]="data" height="300px" allowFiltering="true" [taskFields]="taskfield">
+						</ejs-gantt>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

@@ -1,0 +1,95 @@
+<section id="home-container" class="d-flex" style="height: 91.6vh; overflow-y: scroll">
+  <div class="container">
+    <div class="row" style="margin-top: 20px;">
+      <div class="col-md-11 col-lg-11 col-sm-11 col-11" style="transition: all 0.25s;">
+        <div class="card shadow-lgclear">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-4 col-lg-4 col-sm-4 col-4">
+                <h5 class="card-title"><b>Employees</b></h5>
+              </div>
+              <div class="col-md-4 col-lg-4 col-sm-4 col-4"></div>
+              <div class="col-md-4 col-lg-4 col-sm-4 col-4 icofont-pull-right">
+                <a class="btn btn-secondary btn-sm btn-block" (click)="addNewEmployee()"><i class="icofont-ui-add"></i>&nbsp;Add
+                  Employee</a>
+              </div>
+            </div>
+          </div>
+          <div class="table-responsive shadow-sm">
+            <table class="table table-bordered">
+              <thead>
+              <tr>
+                <th>Name</th>
+                <th>Assigned To</th>
+                <th>Action</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let employee of employeeList; let i = $index">
+                <td>
+                  <div *ngIf="null !== employee.employeeId && !employee.editFlag">
+                    {{employee.name}}
+                  </div>
+                  <div *ngIf="null === employee.employeeId || employee.editFlag">
+                    <input type="text" [(ngModel)]="employee.name">
+                  </div>
+                </td>
+                <td>
+                  <div *ngIf="null !== employee.employeeId && !employee.editFlag">
+                    {{employee.assignedProjectName}}
+                  </div>
+                  <div *ngIf="null === employee.employeeId || employee.editFlag">
+                    <select [(ngModel)]="employee.assignedProjectId">
+                      <option *ngFor="let project of projectList" [ngValue]="project.projectId">
+                        {{project.projectName}}
+                      </option>
+                    </select>
+                  </div>
+                </td>
+                <td>
+                  <div *ngIf="null !== employee.employeeId && !employee.editFlag">
+                    <div class="col-md-3 col-lg-3 col-sm-3 col-3 icofont-pull-left">
+                      <a class="btn btn-dark btn-sm btn-block" (click)="editEmployee(employee)"><i
+                        class="icofont-edit-alt"></i>&nbsp;Edit</a>
+                    </div>
+                    <div class="col-md-5 col-lg-5 col-sm-5 col-5 icofont-pull-left">
+                      <a class="btn btn-info btn-sm btn-block"><i class="icofont-download"></i>&nbsp;Download Leave</a>
+                    </div>
+                    <div class="col-md-4 col-lg-4 col-sm-4 col-4 icofont-pull-right">
+                      <a class="btn btn-secondary btn-sm btn-block" (click)="uploadLeavePlan(employee)"><i
+                        class="icofont-upload-alt"></i>&nbsp;Upload Leave</a>
+                    </div>
+                  </div>
+                  <div *ngIf="null === employee.employeeId || employee.editFlag">
+                    <div class="col-md-6 col-lg-6 col-sm-6 col-6 icofont-pull-left">
+                      <button class="btn btn-primary btn-sm btn-block" (click)="saveEmployee(employee)"
+                              [disabled]="(null === employee.name || '' === employee.name.trim() || null === employee.assignedProjectId)"
+                              [ngClass]="{'disabled':(null === employee.name || '' === employee.name.trim() || null === employee.assignedProjectId)}">
+                        <i class="icofont-save"></i>&nbsp;Save Employee
+                      </button>
+                    </div>
+                    <div *ngIf="null === employee.employeeId"
+                         class="col-md-6 col-lg-6 col-sm-6 col-6 icofont-pull-left">
+                      <a class="btn btn-danger btn-sm btn-block" (click)="cancelEmployeeAddition(employee)"><i
+                        class="icofont-close"></i>&nbsp;Cancel</a>
+                    </div>
+                    <div *ngIf="null !== employee.employeeId"
+                         class="col-md-6 col-lg-6 col-sm-6 col-6 icofont-pull-left">
+                      <a class="btn btn-danger btn-sm btn-block" (click)="cancelEmployeeUpdate(employee)"><i
+                        class="icofont-close"></i>&nbsp;Cancel</a>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="upload-emp-leave-section">
+      <app-upload-leave (sendValue)='recordEmployeeLeave($event)'></app-upload-leave>
+    </div>
+  </div>
+
+</section>
