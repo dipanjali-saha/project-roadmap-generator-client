@@ -32,18 +32,18 @@
                 <td>{{project.milestones.length}}</td>
                 <td>{{project.startDate}}</td>
                 <td>
-                  <div *ngIf="null !== project.endDate">
+                  <div *ngIf="(null !== project.endDate && '' !== project.endDate)">
                     {{project.endDate}}
                   </div>
-                  <div *ngIf="null === project.endDate">
+                  <div *ngIf="(null === project.endDate || '' === project.endDate)">
                     N/A
                   </div>
                 </td>
                 <td>
-                  <div *ngIf="null !== project.endDate">
+                  <div *ngIf="(null !== project.endDate && '' !== project.endDate)">
                     <a class="btn btn-secondary btn-sm btn-block" (click)="viewProjectRoadmap(project)">View Roadmap</a>
                   </div>
-                  <div *ngIf="null === project.endDate">
+                  <div *ngIf="(null === project.endDate || '' === project.endDate)">
                     <a class="btn btn-primary btn-sm btn-block">Generate Roadmap</a>
                   </div>
                 </td>
