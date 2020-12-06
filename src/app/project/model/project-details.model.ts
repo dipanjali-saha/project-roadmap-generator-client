@@ -5,5 +5,7 @@ export interface ProjectDetailsModel {
   name: string,
   startDate: string,
   endDate: string,
-  milestones: MilestoneModel[]
+  milestones: MilestoneModel[],
+  roadmapGenerated: boolean,
+  employeeAssigned: boolean
 }

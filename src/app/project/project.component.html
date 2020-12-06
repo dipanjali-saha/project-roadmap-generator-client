@@ -27,7 +27,7 @@
               </tr>
               </thead>
               <tbody>
-              <tr *ngFor="let project of projectsList">
+              <tr *ngFor="let project of projectsList" [ngClass]="{'selectedProject': (null !== selectedProject && project.projectId === selectedProject.projectId)}">
                 <td>{{project.name}}</td>
                 <td>{{project.milestones.length}}</td>
                 <td>{{project.startDate}}</td>
@@ -40,11 +40,14 @@
                   </div>
                 </td>
                 <td>
-                  <div *ngIf="(null !== project.endDate && '' !== project.endDate)">
+                  <div *ngIf="project.roadmapGenerated">
                     <a class="btn btn-secondary btn-sm btn-block" (click)="viewProjectRoadmap(project)">View Roadmap</a>
                   </div>
-                  <div *ngIf="(null === project.endDate || '' === project.endDate)">
-                    <a class="btn btn-primary btn-sm btn-block">Generate Roadmap</a>
+                  <div *ngIf="!project.roadmapGenerated && project.employeeAssigned">
+                    <a class="btn btn-primary btn-sm btn-block" (click)="generateProjectRoadmap(project)">Generate Roadmap</a>
+                  </div>
+                  <div *ngIf="!project.roadmapGenerated && !project.employeeAssigned">
+                    <a class="btn btn-primary btn-sm btn-block" href="/employee">Assign Employees</a>
                   </div>
                 </td>
               </tr>
@@ -62,7 +65,7 @@
             <div *ngIf="null === selectedProject">
               Please select a project to view its Roadmap
             </div>
-            <div *ngIf="null !== selectedProject" style="max-height: 400px; overflow-y: scroll;">
+            <div *ngIf="null !== selectedProject">
               <div class="row">
                 <div class="col-md-4 col-lg-4 col-sm-4 col-4">
                   <b>Project:</b>&nbsp;{{selectedProject.name}}
@@ -75,7 +78,7 @@
                 </div>
               </div>
               <ejs-gantt id="roadmapChart" [dataSource]="data" [taskFields]="taskSettings"
-                         [columns]="columns">
+                         [columns]="columns" height="400px">
                 <ng-template #tooltipSettingsTaskbar let-data>
                   <div>
                     <p *ngIf="null !== data.AssignedTo">Assignee: {{data.AssignedTo}}</p>
@@ -91,6 +94,9 @@
     </div>
     <div class="upload-project-details-section">
       <app-upload-project-details (sendValue)='recordProjectDetails($event)'></app-upload-project-details>
+    </div>
+    <div *ngIf="null !== toastMessage">
+      <ejs-toast #toastElement (created)="onCreate($event)" [position]='position'></ejs-toast>
     </div>
   </div>
 </section>

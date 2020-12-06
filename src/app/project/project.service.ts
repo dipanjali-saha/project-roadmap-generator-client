@@ -1,9 +1,8 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {take} from 'rxjs/operators';
-import {HttpClient, HttpEvent, HttpParams, HttpRequest} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {ProjectDetailsWrapperModel} from './model/project-details-wrapper.model';
-import {EmployeeLeaveModel} from '../employee/model/employee-leave.model';
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +27,12 @@ export class ProjectService {
     const formData: FormData = new FormData();
     formData.append('projectDetailsFile', projectDetailsFile);
     return this.http.post<ProjectDetailsWrapperModel>('http://localhost:8080/api/v1/project', formData, options).pipe(
+      take(1)
+    );
+  }
+
+  generateRoadmap(projectId: number): Observable<ProjectDetailsWrapperModel> {
+    return this.http.post<ProjectDetailsWrapperModel>('http://localhost:8080/api/v1/project-roadmap', projectId).pipe(
       take(1)
     );
   }

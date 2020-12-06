@@ -12,6 +12,7 @@ import {ProjectService} from './project.service';
 export class ProjectComponent implements OnInit {
 
   @ViewChild(UploadProjectDetailsComponent) private projectDetailsUploadDialog: UploadProjectDetailsComponent;
+  @ViewChild('toastElement') toastElement;
 
   public data: MilestoneRoadmapModel[];
   public taskSettings: any;
@@ -23,6 +24,8 @@ export class ProjectComponent implements OnInit {
   }
 
   projectsList: ProjectDetailsModel[] = [];
+  public position = { X: 'Right', Y: 'Top' };
+  toastMessage = null;
 
   ngOnInit(): void {
     this.taskSettings = {
@@ -49,6 +52,16 @@ export class ProjectComponent implements OnInit {
   recordProjectDetails(projectDetailsFile: File): void {
     this.projectService.saveProjectDetails(projectDetailsFile).subscribe(projectsListResponse => {
       this.projectsList = projectsListResponse.projectDetails;
+      this.toastMessage = { title: 'Success', content: 'Project details saved successfully', cssClass: 'e-toast-success'};
+      this.toastShow();
+    });
+  }
+
+  generateProjectRoadmap(project: ProjectDetailsModel): void {
+    this.projectService.generateRoadmap(project.projectId).subscribe(projectsListResponse => {
+      this.projectsList = projectsListResponse.projectDetails;
+      this.toastMessage = { title: 'Success', content: 'Project roadmap generated successfully', cssClass: 'e-toast-success'};
+      this.toastShow();
     });
   }
 
@@ -79,5 +92,20 @@ export class ProjectComponent implements OnInit {
     this.projectService.getAllProjects().subscribe(projectsListResponse => {
       this.projectsList = projectsListResponse.projectDetails;
     });
+  }
+
+  onCreate(event: Event) {
+    this.toastElement.show(this.toastMessage);
+  }
+
+  btnClick() {
+    this.toastShow();
+  }
+
+  toastShow() {
+    setTimeout(
+      () => {
+        this.toastElement.show(this.toastMessage);
+      }, 0);
   }
 }

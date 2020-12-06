@@ -48,21 +48,18 @@
                 </td>
                 <td>
                   <div *ngIf="null !== employee.employeeId && !employee.editFlag">
-                    <div class="col-md-3 col-lg-3 col-sm-3 col-3 icofont-pull-left">
-                      <a class="btn btn-dark btn-sm btn-block" (click)="editEmployee(employee)"><i
+                    <div class="col-md-6 col-lg-6 col-sm-6 col-6 icofont-pull-left">
+                      <a class="btn btn-primary btn-sm btn-block" (click)="editEmployee(employee)"><i
                         class="icofont-edit-alt"></i>&nbsp;Edit</a>
                     </div>
-                    <div class="col-md-5 col-lg-5 col-sm-5 col-5 icofont-pull-left">
-                      <a class="btn btn-info btn-sm btn-block"><i class="icofont-download"></i>&nbsp;Download Leave</a>
-                    </div>
-                    <div class="col-md-4 col-lg-4 col-sm-4 col-4 icofont-pull-right">
+                    <div class="col-md-6 col-lg-6 col-sm-6 col-6 icofont-pull-right">
                       <a class="btn btn-secondary btn-sm btn-block" (click)="uploadLeavePlan(employee)"><i
                         class="icofont-upload-alt"></i>&nbsp;Upload Leave</a>
                     </div>
                   </div>
                   <div *ngIf="null === employee.employeeId || employee.editFlag">
                     <div class="col-md-6 col-lg-6 col-sm-6 col-6 icofont-pull-left">
-                      <button class="btn btn-primary btn-sm btn-block" (click)="saveEmployee(employee)"
+                      <button class="btn btn-success btn-sm btn-block" (click)="saveEmployee(employee)"
                               [disabled]="(null === employee.name || '' === employee.name.trim() || null === employee.assignedProjectId)"
                               [ngClass]="{'disabled':(null === employee.name || '' === employee.name.trim() || null === employee.assignedProjectId)}">
                         <i class="icofont-save"></i>&nbsp;Save Employee
@@ -89,6 +86,9 @@
     </div>
     <div class="upload-emp-leave-section">
       <app-upload-leave (sendValue)='recordEmployeeLeave($event)'></app-upload-leave>
+    </div>
+    <div *ngIf="null !== toastMessage">
+      <ejs-toast #toastElement (created)="onCreate($event)" [position]='position'></ejs-toast>
     </div>
   </div>
 

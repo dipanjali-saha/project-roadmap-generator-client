@@ -10,6 +10,7 @@
 @import '../node_modules/@syncfusion/ej2-layouts/styles/material.css';
 @import '../node_modules/@syncfusion/ej2-navigations/styles/material.css';
 @import '../node_modules/@syncfusion/ej2-popups/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-angular-notifications/styles/material.css';
 @import '../node_modules/@syncfusion/ej2-richtexteditor/styles/material.css';
 @import '../node_modules/@syncfusion/ej2-grids/styles/material.css';
 @import '../node_modules/@syncfusion/ej2-treegrid/styles/material.css';
@@ -454,6 +455,52 @@ h6 {
 
 #roadmapChart {
   height: 500px;
+}
+
+.selectedProject {
+  background-color: #D1EEEE;
+}
+
+#elementToastTime .e-toast {
+  width: 500px;
+  height: 147px;
+}
+
+#elementToastTime {
+  text-align: center;
+}
+
+#elementToastTime img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+
+#elementToastTime .e-toast-message {
+  width: inherit;
+}
+
+#sample_container {
+  margin: 10px;
+}
+
+body>#toastElement .e-toast {
+  width: 400px !important;
+}
+
+#template_toast .horizontal-align {
+  margin: 10px 0;
+}
+
+#template_toast .horizontal-align .toast-content .toast-message {
+  opacity: 0.4;
+}
+
+#template_toast .horizontal-align .toast-content {
+  display: inline-flex;
+  flex: 1;
+  flex-direction: column;
+  margin-left: 10px;
 }
 
 @media (max-width: 991px) {

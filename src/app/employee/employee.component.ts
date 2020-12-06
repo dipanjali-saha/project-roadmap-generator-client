@@ -14,6 +14,7 @@ import {ProjectService} from '../project/project.service';
 export class EmployeeComponent implements OnInit {
 
   @ViewChild(UploadLeaveComponent) private employeeLeaveUploadDialog: UploadLeaveComponent;
+  @ViewChild('toastElement') toastElement;
 
   constructor(private employeeService: EmployeeService,
               private projectService: ProjectService) {
@@ -21,6 +22,8 @@ export class EmployeeComponent implements OnInit {
 
   employeeList: Employee[] = [];
   projectList: ProjectListingModel[] = [];
+  public position = { X: 'Right', Y: 'Top' };
+  toastMessage = null;
 
   ngOnInit(): void {
 
@@ -56,6 +59,8 @@ export class EmployeeComponent implements OnInit {
   saveEmployee(emp: Employee): void {
     this.employeeService.saveOrUpdateEmployee(emp).subscribe(employeeListResponse => {
       this.employeeList = employeeListResponse.employeeList;
+      this.toastMessage = { title: 'Success', content: 'Employee details saved successfully', cssClass: 'e-toast-success'};
+      this.toastShow();
     });
   }
 
@@ -69,7 +74,25 @@ export class EmployeeComponent implements OnInit {
   }
 
   recordEmployeeLeave(employeeLeavePlan: EmployeeLeaveModel) {
-    this.employeeService.saveEmployeeLeavePlan(employeeLeavePlan).subscribe();
+    this.employeeService.saveEmployeeLeavePlan(employeeLeavePlan).subscribe(() => {
+      this.toastMessage = { title: 'Success', content: 'Employee leave recorded successfully', cssClass: 'e-toast-success'};
+      this.toastShow();
+    });
+  }
+
+  onCreate(event: Event) {
+    this.toastElement.show(this.toastMessage);
+  }
+
+  btnClick() {
+    this.toastShow();
+  }
+
+  toastShow() {
+    setTimeout(
+      () => {
+        this.toastElement.show(this.toastMessage);
+      }, 0);
   }
 
 }
