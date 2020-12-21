@@ -51,7 +51,7 @@ export class ProjectComponent implements OnInit {
 
   recordProjectDetails(projectDetailsFile: File): void {
     this.projectService.saveProjectDetails(projectDetailsFile).subscribe(projectsListResponse => {
-      this.projectsList = projectsListResponse.projectDetails;
+      this.initializeData();
       this.toastMessage = { title: 'Success', content: 'Project details saved successfully', cssClass: 'e-toast-success'};
       this.toastShow();
     });
